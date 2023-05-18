@@ -1,3 +1,7 @@
+/**
+ *Submitted for verification at BscScan.com on 2023-05-17
+*/
+
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
@@ -310,7 +314,8 @@ contract Archie_Token is Context, IARC20 {
     address public  uniswapV2Pair;
     address public marketingwallet;
 
-    uint256 public transfermarketingFee = 5000000000; //5 %
+
+    uint256 public transfermarketingFee = 2000000000; //2 %
     uint256 public sellmarketingFee = 5000000000;  //5 %
     uint256 public buymarketingFee = 5000000000;    //5 %
 
@@ -320,7 +325,7 @@ contract Archie_Token is Context, IARC20 {
 
 
 
-    uint256 public transferliquidityFee = 5000000000;   //5 %
+    uint256 public transferliquidityFee = 2000000000;   //2 %
     uint256 public buyliquidityFee=5000000000;  //5 %
     uint256 public sellliquidityFee=5000000000;  //5 %
 
@@ -361,8 +366,8 @@ contract Archie_Token is Context, IARC20 {
     constructor (address _marketingWallet)  {
         _name = 'Archie Token';
         _symbol = 'ARCHIE';
-        _totalSupply = 1000000000e9;
         _decimals = 9;
+        _totalSupply = 1000000000e9;
         _isExcluded[msg.sender]=true;
         _isExcluded[address(this)]=true;
         _isExcluded[uniswapV2Pair]=true;
@@ -370,10 +375,11 @@ contract Archie_Token is Context, IARC20 {
         marketingwallet=_marketingWallet;
 
         tradingActive=false;
+     
        
 
         
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x052967739A95D258c44Cf9a79F3135c1291d9fe5);
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
          // Create a uniswap pair for this new token
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
@@ -384,7 +390,7 @@ contract Archie_Token is Context, IARC20 {
 
               
           owner=msg.sender;
-          _balances[owner] = _totalSupply;
+           _balances[owner] = _totalSupply;
                   _paused = false;
         emit Transfer(address(0), owner, _totalSupply);
         
@@ -394,6 +400,8 @@ contract Archie_Token is Context, IARC20 {
         require(msg.sender==owner, "Only Call by Owner");
         _;
     }
+     
+ 
 
 
     /**
@@ -819,6 +827,8 @@ else if(_isExcluded[recipient]==true )
     }
 
      function setLiquidityFeePercent(uint256 _transferliquidityFee,uint256 _buyliquidityFee,uint256 _sellliquidityFee) external onlyOwner() {
+         require(buymarketingFee+_buyliquidityFee<=10000000000,"Can't set more than 10%");
+         require(sellmarketingFee+_sellliquidityFee<=10000000000,"Can't set more than 10%");
         transferliquidityFee = _transferliquidityFee;
         buyliquidityFee=_buyliquidityFee;
         sellliquidityFee=_sellliquidityFee;
@@ -846,6 +856,8 @@ else if(_isExcluded[recipient]==true )
     }
 
     function setMarketingfeepercent(uint256 _transfermarketingFee,uint256  _sellmarketingFee,uint256  _buymarketingFee) external onlyOwner{
+        require(buyliquidityFee+_buymarketingFee<=10000000000,"Can't set more than 10%");
+         require(sellliquidityFee+_sellmarketingFee<=10000000000,"Can't set more than 10%");
         transfermarketingFee=_transfermarketingFee;
         sellmarketingFee=_sellmarketingFee;
         buymarketingFee=_buymarketingFee;
@@ -957,7 +969,12 @@ else if(_isExcluded[recipient]==true )
         );
     }
 
+  
 
+     function burn(uint256 amount) public virtual {
+        _burn(_msgSender(), amount);
+    }
+  
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
       receive() external payable{
   // your code here…

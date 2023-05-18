@@ -15,7 +15,7 @@ function Total_value({setShoww}) {
   const TotalAmount =async()=>{
     try{
       const webSupply = new Web3(
-        "https://rpc-main-1.archiechain.io"
+        "https://bsc.publicnode.com"
     );
 
 

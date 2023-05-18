@@ -129,7 +129,7 @@ function Canvas_contant({setShoww,showw, name, ...props  }) {
                   <p className="text-white">Connected Chain</p>
                 </div>
                 <div>
-                  <p className="text-white" style={{marginTop:"-1rem"}}>ArchieChain Mainnet</p>
+                  <p className="text-white" style={{marginTop:"-1rem"}}>Binance Smart Chain Mainnet</p>
                 </div>
                 <button
                   className="btn btn-lg w-100 mata_mask mt-3 text-start ps-3 "

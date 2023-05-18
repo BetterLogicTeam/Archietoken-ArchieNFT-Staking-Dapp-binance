@@ -21,7 +21,7 @@ export default function Mylock({ setShoww, check }) {
 
     const checkBalance = async () => {
         const webSupply = new Web3(
-            "https://rpc-main-1.archiechain.io"
+            "https://bsc.publicnode.com"
         );
         let stakingContractOf
         if (check == "one") {

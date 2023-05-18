@@ -3,15 +3,15 @@ let isItConnected = false;
 const networks = {
   bsc: {
    
-    chainId: `0x${Number(1243).toString(16)}`, // 1243
-    chainName: "ArchieChain Mainnet",
+    chainId: `0x${Number(56).toString(16)}`, // 56
+    chainName: "Binance smart chain",
     nativeCurrency: {
-      name: "ARC",
-      symbol: "ARC",
+      name: "BNB",
+      symbol: "BNB",
       decimals: 18,
     },
-    rpcUrls: ["https://rpc-main-1.archiechain.io"],
-    blockExplorerUrls: ["https://app.archiescan.io"],
+    rpcUrls: ["https://bsc-dataseed1.binance.org"],
+    blockExplorerUrls: ["https://bscscan.com"],
   },
 };
 const changeNetwork = async ({ networkName }) => {
@@ -58,7 +58,7 @@ export const loadWeb3 = async () => {
       await window.web3.eth.getChainId((err, netId) => {
         console.log("networkId==>", netId);
         switch (netId.toString()) {
-          case "1243":
+          case "56":
             isItConnected = true;
             break;
           default:
