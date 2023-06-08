@@ -42,7 +42,8 @@ function Lockestake({ setShoww, check }) {
   const [slectedAllnfton, setslectedAllnfton] = useState({
     condition: false,
     walletOfOwneron: [],
-  });
+  })
+  const [grtAPY_value, setgrtAPY_value] = useState({days30:"..",days90:"..",days180:"..",days360:".."})
   const [noSelectedAll, setnoSelectedAll] = useState([])
 
   const staking_Amount = async () => {
@@ -288,6 +289,41 @@ function Lockestake({ setShoww, check }) {
     }
   };
 
+  const changeAPY=async()=>{
+    try {
+      let length_MFT= cardIndex.length
+      length_MFT=Number(length_MFT)
+      console.log("length_MFT",length_MFT);
+      if(length_MFT>24 && length_MFT<50){
+        setgrtAPY_value({days30:15,days90:21,days180:27,days360:33})
+
+      }else if(length_MFT>49 && length_MFT<75){
+        setgrtAPY_value({days30:18,days90:24,days180:30,days360:36})
+
+      }else if(length_MFT>74 && length_MFT<100){
+        setgrtAPY_value({days30:21,days90:27,days180:33,days360:39})
+
+      }else if(length_MFT>99 && length_MFT<150){
+        setgrtAPY_value({days30:24,days90:30,days180:36,days360:42})
+
+      }else if(length_MFT>149 && length_MFT<200){
+        setgrtAPY_value({days30:27,days90:33,days180:39,days360:45})
+
+      }else if(length_MFT>199 && length_MFT<500){
+        setgrtAPY_value({days30:33,days90:39,days180:45,days360:51})
+
+      }else if(length_MFT>500){
+        setgrtAPY_value({days30:36,days90:42,days180:48,days360:54})
+      }else{
+        setgrtAPY_value({days30:0,days90:0,days180:0,days360:0})
+
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     TotalAmount();
   }, [acc]);
@@ -358,7 +394,7 @@ function Lockestake({ setShoww, check }) {
                           >
                             30 Days
                           </button>
-                          <div className="arp border-top">12% APY</div>
+                          <div className="arp border-top"> 12% APY</div>
                         </div>
                         <div
                           className=" border des_tw p-0"
@@ -369,6 +405,7 @@ function Lockestake({ setShoww, check }) {
                                 : "rgb(24, 22, 82)",
                           }}
                         >
+                          
                           <button
                             className="btn btn-md dates"
                             onClick={() => (setselectDays(90), setActive(2))}
@@ -453,7 +490,7 @@ function Lockestake({ setShoww, check }) {
                     <div className="btn_selected">
                       <button
                         className="btn end_canvas text-white me-auto"
-                        onClick={() => selectAllNFT()}
+                        onClick={() => (selectAllNFT(),changeAPY())}
                       >
                         Select All
                       </button>
@@ -487,7 +524,7 @@ function Lockestake({ setShoww, check }) {
                                 : "none",
                           }}
                           id={index}
-                          onClick={() => SelectedCard(index, items.tokenid)}
+                          onClick={() => (SelectedCard(index, items.tokenid),changeAPY())}
                         >
                           <div class="game-inner">
                             <div class="game-item__thumb">
@@ -579,7 +616,7 @@ function Lockestake({ setShoww, check }) {
                           >
                             30 Days
                           </button>
-                          <div className="arp border-top">18% APY</div>
+                          <div className="arp border-top">{grtAPY_value.days30} % APY</div>
                         </div>
                         <div
                           className=" border des_tw p-0"
@@ -596,7 +633,7 @@ function Lockestake({ setShoww, check }) {
                           >
                             90 Days
                           </button>
-                          <div className="arp border-top">24% APY</div>
+                          <div className="arp border-top">{grtAPY_value.days90} % APY</div>
                         </div>
                         <div
                           className=" border des_tw p-0"
@@ -613,7 +650,7 @@ function Lockestake({ setShoww, check }) {
                           >
                             180 Days
                           </button>
-                          <div className="arp border-top">30% APY</div>
+                          <div className="arp border-top">{grtAPY_value.days180} % APY</div>
                         </div>
                         <div
                           className=" border des_tw p-0"
@@ -630,7 +667,7 @@ function Lockestake({ setShoww, check }) {
                           >
                             360 Days
                           </button>
-                          <div className="arp border-top">36% APY</div>
+                          <div className="arp border-top">{grtAPY_value.days360} % APY</div>
                         </div>
                       </div>
                     </div>
