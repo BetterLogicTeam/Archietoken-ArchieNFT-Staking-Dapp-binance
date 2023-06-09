@@ -43,6 +43,8 @@ function Lockestake({ setShoww, check }) {
     condition: false,
     walletOfOwneron: [],
   })
+
+  let arryNew=[]
   const [grtAPY_value, setgrtAPY_value] = useState({days30:"..",days90:"..",days180:"..",days360:".."})
   const [noSelectedAll, setnoSelectedAll] = useState([])
 
@@ -189,6 +191,7 @@ function Lockestake({ setShoww, check }) {
       check = check.map(Number);
 
       setcardIndex(check);
+      arryNew=check
 
       setselectedCard(id);
     } catch (e) {
@@ -284,6 +287,7 @@ function Lockestake({ setShoww, check }) {
         noSelectedAll
       );
       setcardIndex(noSelectedAll);
+      arryNew=noSelectedAll
     } catch (error) {
       console.log("Error When SelectAll Nft Fuction", error);
     }
@@ -291,7 +295,7 @@ function Lockestake({ setShoww, check }) {
 
   const changeAPY=async()=>{
     try {
-      let length_MFT= cardIndex.length
+      let length_MFT= await arryNew.length
       length_MFT=Number(length_MFT)
       console.log("length_MFT",length_MFT);
       if(length_MFT>24 && length_MFT<50){
